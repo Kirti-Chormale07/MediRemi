@@ -39,6 +39,20 @@ data class DoseLog(
     val guardianNotified: Int
 )
 
+/**
+ * A doctor appointment.
+ * leadMin: remind this many minutes before the appointment
+ * (0 = at the appointment time, 15/60/1440 = before).
+ */
+data class Appointment(
+    val id: Long,
+    val doctor: String,
+    val reason: String,
+    val place: String,
+    val at: Long,
+    val leadMin: Int
+)
+
 object Status {
     const val PENDING = 0
     const val TAKEN = 1
@@ -46,9 +60,13 @@ object Status {
     const val SNOOZED = 3
 }
 
-class Db(context: Context) : SQLiteOpenHelper(context.applicationContext, "mediremind.db", null, 1) {
+class Db(context: Context) : SQLiteOpenHelper(context.applicationContext, "mediremind.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
+        createTables(db)
+    }
+
+    private fun createTables(db: SQLiteDatabase) {
         db.execSQL(
             "CREATE TABLE medicines (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -71,12 +89,30 @@ class Db(context: Context) : SQLiteOpenHelper(context.applicationContext, "medir
                 "guardian_notified INTEGER DEFAULT 0," +
                 "UNIQUE(med_id, scheduled_at))"
         )
+        db.execSQL(
+            "CREATE TABLE appointments (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "doctor TEXT NOT NULL," +
+                "reason TEXT," +
+                "place TEXT," +
+                "at INTEGER NOT NULL," +
+                "lead_min INTEGER DEFAULT 60)"
+        )
     }
 
+    /** Additive migration – never drops the elder's medicines or history. */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS medicines")
-        db.execSQL("DROP TABLE IF EXISTS dose_log")
-        onCreate(db)
+        if (oldVersion < 2) {
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS appointments (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "doctor TEXT NOT NULL," +
+                    "reason TEXT," +
+                    "place TEXT," +
+                    "at INTEGER NOT NULL," +
+                    "lead_min INTEGER DEFAULT 60)"
+            )
+        }
     }
 
     // ---------- medicines ----------
@@ -208,6 +244,71 @@ class Db(context: Context) : SQLiteOpenHelper(context.applicationContext, "medir
             }
         }
         return out
+    }
+
+    // ---------- appointments ----------
+
+    /** Upcoming appointments (from now on), soonest first. */
+    fun upcomingAppointments(now: Long = System.currentTimeMillis()): List<Appointment> {
+        val out = ArrayList<Appointment>()
+        readableDatabase.rawQuery(
+            "SELECT id,doctor,reason,place,at,lead_min FROM appointments WHERE at>=? ORDER BY at",
+            arrayOf(now.toString())
+        ).use { c ->
+            while (c.moveToNext()) {
+                out.add(
+                    Appointment(
+                        id = c.getLong(0),
+                        doctor = c.getString(1),
+                        reason = c.getString(2) ?: "",
+                        place = c.getString(3) ?: "",
+                        at = c.getLong(4),
+                        leadMin = c.getInt(5)
+                    )
+                )
+            }
+        }
+        return out
+    }
+
+    fun getAppointment(id: Long): Appointment? {
+        readableDatabase.rawQuery(
+            "SELECT id,doctor,reason,place,at,lead_min FROM appointments WHERE id=?",
+            arrayOf(id.toString())
+        ).use { c ->
+            if (c.moveToFirst()) {
+                return Appointment(
+                    id = c.getLong(0),
+                    doctor = c.getString(1),
+                    reason = c.getString(2) ?: "",
+                    place = c.getString(3) ?: "",
+                    at = c.getLong(4),
+                    leadMin = c.getInt(5)
+                )
+            }
+        }
+        return null
+    }
+
+    /** Returns new id for insert; 0 for update. */
+    fun saveAppointment(a: Appointment): Long {
+        val cv = ContentValues().apply {
+            put("doctor", a.doctor)
+            put("reason", a.reason)
+            put("place", a.place)
+            put("at", a.at)
+            put("lead_min", a.leadMin)
+        }
+        return if (a.id <= 0) {
+            writableDatabase.insert("appointments", null, cv)
+        } else {
+            writableDatabase.update("appointments", cv, "id=?", arrayOf(a.id.toString()))
+            0
+        }
+    }
+
+    fun deleteAppointment(id: Long) {
+        writableDatabase.delete("appointments", "id=?", arrayOf(id.toString()))
     }
 
     // ---------- json ----------

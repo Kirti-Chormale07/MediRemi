@@ -78,6 +78,7 @@
     <string name="lang_hi">हिंदी (Hindi)</string>
     <string name="lang_mr">मराठी (Marathi)</string>
     <string name="lang_gu">ગુજરાતી (Gujarati)</string>
+    <string name="chk_voice">🔊 Speak the reminder out loud (in selected language)</string>
     <string name="lbl_grace">If no answer, SMS guardian after</string>
     <string name="grace_fmt">%1$d minutes</string>
     <string name="meal_times_header">Meal times</string>
@@ -123,6 +124,60 @@
     <string name="sos_sms">✉ Send SOS SMS</string>
     <string name="sos_sent">SOS message sent ✓</string>
     <string name="sos_no_guardian">First add guardian’s number in Settings</string>
+
+    <!-- Emergency doctor contact -->
+    <string name="btn_doctor">🩺 Doctor</string>
+    <string name="doctor_header">Family doctor (for emergencies)</string>
+    <string name="hint_doctor_name">e.g. Dr. Sharma</string>
+    <string name="hint_doctor_phone">Doctor’s mobile number</string>
+    <string name="doctor_not_set">The doctor’s number is not saved yet. Add it in Settings.</string>
+    <string name="doctor_word">doctor</string>
+    <string name="doctor_call_title">Call the doctor?</string>
+    <string name="doctor_call_msg">%1$s\n%2$s</string>
+    <string name="doctor_call_go">📞 Call now</string>
+    <string name="doctor_no_number">First add the doctor’s number in Settings</string>
+
+    <!-- Doctor appointments -->
+    <string name="btn_appointments">📅 Appointments</string>
+    <string name="appt_title">Doctor appointments</string>
+    <string name="appt_subtitle">Reminders before your visit</string>
+    <string name="appt_empty">No appointments yet.\nTap “+ Add appointment” to start.</string>
+    <string name="btn_add_appt">+ Add appointment</string>
+    <string name="appt_editor_title">Appointment</string>
+    <string name="lbl_appt_doctor">Doctor’s name</string>
+    <string name="hint_appt_doctor">e.g. Dr. Sharma</string>
+    <string name="lbl_appt_reason">Reason (what it is for)</string>
+    <string name="hint_appt_reason">e.g. BP check-up</string>
+    <string name="lbl_appt_place">Place / clinic</string>
+    <string name="hint_appt_place">e.g. City Hospital, Room 12</string>
+    <string name="lbl_appt_when">Date &amp; time</string>
+    <string name="lbl_appt_lead">Remind me before</string>
+    <string name="appt_date_fmt">📆 %1$s</string>
+    <string name="appt_time_fmt">🕐 %1$s</string>
+    <string name="lead_at_time">At the appointment time</string>
+    <string name="lead_15">15 minutes before</string>
+    <string name="lead_60">1 hour before</string>
+    <string name="lead_1day">1 day before</string>
+    <string name="btn_save_appt">Save appointment</string>
+    <string name="btn_delete_appt">🗑 Delete this appointment</string>
+    <string name="appt_saved">Appointment saved ✓</string>
+    <string name="appt_deleted">Appointment deleted</string>
+    <string name="appt_delete_title">Delete this appointment?</string>
+    <string name="appt_delete_msg">Its reminder will stop.</string>
+    <string name="appt_delete">Delete</string>
+    <string name="err_appt_doctor">Please type the doctor’s name</string>
+    <string name="err_appt_future">Please pick a future date and time</string>
+    <string name="appt_line">%1$s, %2$s</string>
+    <string name="day_today">Today</string>
+    <string name="day_tomorrow">Tomorrow</string>
+    <string name="appt_rem_title">🩺 Doctor appointment</string>
+    <string name="appt_with">with</string>
+    <string name="appt_ok">✅ Got it</string>
+    <string name="btn_call_doctor">📞 Call the doctor</string>
+    <string name="tts_appt">%1$s! Doctor appointment with %2$s at %3$s.</string>
+    <string name="notif_appt_title">Doctor appointment</string>
+    <string name="notif_appt_channel_name">Appointment reminders</string>
+    <string name="notif_appt_channel_desc">Reminds you before a doctor appointment</string>
 
     <!-- Report -->
     <string name="report_title">Weekly report</string>

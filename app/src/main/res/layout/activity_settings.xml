@@ -53,6 +53,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@string/doctor_header" />
+
+        <EditText
+            android:id="@+id/edtDoctorName"
+            style="@style/BigField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_doctor_name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edtDoctorPhone"
+            style="@style/BigField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_doctor_phone"
+            android:inputType="phone" />
+
+        <TextView
+            style="@style/FieldLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/sms_api_header" />
 
         <CheckBox
@@ -128,6 +151,15 @@
                 android:text="@string/lang_gu"
                 android:textSize="20sp" />
         </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/chkVoice"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:checked="true"
+            android:text="@string/chk_voice"
+            android:textSize="18sp" />
 
         <TextView
             style="@style/FieldLabel"

@@ -2,7 +2,6 @@ package com.example.mediremind.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,21 +16,17 @@ import com.example.mediremind.util.ImageUtil
 import com.example.mediremind.util.LocaleHelper
 import com.example.mediremind.util.Scheduler
 import com.example.mediremind.util.TimeFmt
+import com.example.mediremind.util.VoiceAnnouncer
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Locale
 
 /**
  * Full-screen reminder shown even when the phone is locked.
  * Speaks the instruction out loud in the elder's language (TTS).
  */
 class ReminderActivity : AppCompatActivity() {
-
-    private var tts: TextToSpeech? = null
-    private var pendingSpeech: String? = null
-    private var speechDone = false
 
     private var medId: Long = -1
     private var at: Long = 0
@@ -51,8 +46,6 @@ class ReminderActivity : AppCompatActivity() {
             finish()
             return
         }
-
-        initTts()
 
         lifecycleScope.launch {
             val med = withContext(Dispatchers.IO) {
@@ -81,7 +74,11 @@ class ReminderActivity : AppCompatActivity() {
 
             val patient = Prefs(this@ReminderActivity).patientName
                 .ifBlank { getString(R.string.friend) }
-            speak(
+            // speakOnce(): if the alarm already announced this dose, it stays silent;
+            // otherwise it speaks the prompt here (in the selected language).
+            VoiceAnnouncer.speakOnce(
+                this@ReminderActivity,
+                VoiceAnnouncer.doseKey(medId, at),
                 getString(
                     R.string.tts_prompt, patient, med.name,
                     med.dose.ifBlank { " " }
@@ -93,8 +90,8 @@ class ReminderActivity : AppCompatActivity() {
             if (answered) return@setOnClickListener
             answered = true
             DoseActions.taken(this, medId, at)
-            speak(getString(R.string.tts_thanks))
-            window.decorView.postDelayed({ finish() }, 1800)
+            VoiceAnnouncer.speak(this, getString(R.string.tts_thanks))
+            window.decorView.postDelayed({ finish() }, 2500)
         }
 
         findViewById<MaterialButton>(R.id.btnSnooze).setOnClickListener {
@@ -118,39 +115,5 @@ class ReminderActivity : AppCompatActivity() {
                 .setNegativeButton(R.string.cancel, null)
                 .show()
         }
-    }
-
-    private fun initTts() {
-        tts = TextToSpeech(this) { status ->
-            if (status != TextToSpeech.SUCCESS) return@TextToSpeech
-            val engine = tts ?: return@TextToSpeech
-            val locale = Locale(Prefs(this).langCode())
-            val res = engine.setLanguage(locale)
-            if (res == TextToSpeech.LANG_MISSING_DATA || res == TextToSpeech.LANG_NOT_SUPPORTED) {
-                engine.setLanguage(Locale.getDefault())
-            }
-            engine.setSpeechRate(0.9f)
-            pendingSpeech?.let { text ->
-                engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, "dose_reminder")
-                pendingSpeech = null
-                speechDone = true
-            }
-        }
-    }
-
-    private fun speak(text: String) {
-        val engine = tts
-        if (engine != null && speechDone) {
-            engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, "dose_reminder")
-        } else {
-            pendingSpeech = text
-        }
-    }
-
-    override fun onDestroy() {
-        tts?.stop()
-        tts?.shutdown()
-        tts = null
-        super.onDestroy()
     }
 }

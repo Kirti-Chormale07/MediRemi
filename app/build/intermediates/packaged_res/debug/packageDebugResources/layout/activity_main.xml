@@ -83,6 +83,34 @@
             android:text="@string/btn_sos" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDoctor"
+            style="@style/BigButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#1565C0"
+            android:text="@string/btn_doctor" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAppointments"
+            style="@style/BigButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:text="@string/btn_appointments" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtMissedBanner"
         android:layout_width="match_parent"

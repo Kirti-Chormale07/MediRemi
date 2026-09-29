@@ -67,6 +67,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ReportActivity::class.java))
         }
         findViewById<MaterialButton>(R.id.btnSos).setOnClickListener { sosDialog() }
+        findViewById<MaterialButton>(R.id.btnDoctor).setOnClickListener { callDoctor() }
+        findViewById<MaterialButton>(R.id.btnAppointments).setOnClickListener {
+            startActivity(Intent(this, AppointmentsActivity::class.java))
+        }
 
         requestPermissionsIfNeeded()
         Scheduler.scheduleNextTwoDays(this)
@@ -166,6 +170,34 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.sos_sent, Toast.LENGTH_SHORT).show()
             }
             .setNeutralButton(R.string.cancel, null)
+            .show()
+    }
+
+    /**
+     * Emergency doctor contact: one tap opens the dialer with the family
+     * doctor's number (from Settings). Never places the call by itself.
+     */
+    private fun callDoctor() {
+        val prefs = Prefs(this)
+        if (prefs.doctorPhone.isBlank()) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.btn_doctor)
+                .setMessage(R.string.doctor_not_set)
+                .setPositiveButton(R.string.btn_settings) { _, _ ->
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
+            return
+        }
+        val name = prefs.doctorName.ifBlank { getString(R.string.doctor_word) }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.doctor_call_title)
+            .setMessage(getString(R.string.doctor_call_msg, name, prefs.doctorPhone))
+            .setPositiveButton(R.string.doctor_call_go) { _, _ ->
+                startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${prefs.doctorPhone}")))
+            }
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 

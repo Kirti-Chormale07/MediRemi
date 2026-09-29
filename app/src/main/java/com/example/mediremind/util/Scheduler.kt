@@ -5,10 +5,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import com.example.mediremind.data.Appointment
 import com.example.mediremind.data.Db
 import com.example.mediremind.data.DoseTime
 import com.example.mediremind.data.Medicine
 import com.example.mediremind.data.Prefs
+import com.example.mediremind.receivers.AppointmentReceiver
 import com.example.mediremind.receivers.DayRolloverReceiver
 import com.example.mediremind.receivers.DoseAlarmReceiver
 import com.example.mediremind.receivers.MissedCheckReceiver
@@ -18,6 +20,7 @@ import kotlin.math.max
  * Owns every AlarmManager schedule:
  *  - a DOSE alarm at each reminder time (rings notification + full-screen reminder)
  *  - a MISSED alarm grace-period later (escalates to an SMS to the guardian)
+ *  - an APPOINTMENT alarm before each doctor appointment
  *  - a daily midnight alarm that rolls the schedule forward
  */
 object Scheduler {
@@ -27,9 +30,11 @@ object Scheduler {
     const val ACTION_ROLL = "com.example.mediremind.action.ROLL"
     const val ACTION_TAKEN = "com.example.mediremind.action.TAKEN"
     const val ACTION_SNOOZE = "com.example.mediremind.action.SNOOZE"
+    const val ACTION_APPT = "com.example.mediremind.action.APPOINTMENT"
 
     const val EXTRA_MED_ID = "med_id"
     const val EXTRA_AT = "at"
+    const val EXTRA_APPT_ID = "appt_id"
 
     const val SNOOZE_MS = 10 * 60 * 1000L
 
@@ -81,7 +86,58 @@ object Scheduler {
             }
         }
         scheduleDayRollover(context)
+        scheduleAppointments(context)
     }
+
+    /**
+     * Re-arms every future doctor appointment. Called from the daily roll, boot,
+     * app start and whenever an appointment is saved – idempotent.
+     */
+    fun scheduleAppointments(context: Context) {
+        val now = System.currentTimeMillis()
+        for (a in Db(context).upcomingAppointments(now)) {
+            scheduleAppointment(context, a)
+        }
+    }
+
+    /** Epoch millis of the appointment reminder (lead minutes before the visit). */
+    fun apptTrigger(appt: Appointment): Long = appt.at - appt.leadMin * 60_000L
+
+    fun scheduleAppointment(context: Context, appt: Appointment) {
+        val intent = Intent(context, AppointmentReceiver::class.java).apply {
+            action = ACTION_APPT
+            putExtra(EXTRA_APPT_ID, appt.id)
+            putExtra(EXTRA_AT, appt.at)
+        }
+        val pi = PendingIntent.getBroadcast(
+            context, apptRequestCode(appt.id), intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        // Lead time already passed (or appointment over) → nothing to schedule.
+        val trigger = apptTrigger(appt)
+        if (trigger <= System.currentTimeMillis()) return
+        if (canExact(context)) {
+            am(context).setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pi)
+        } else {
+            am(context).setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pi)
+        }
+    }
+
+    fun cancelAppointment(context: Context, apptId: Long) {
+        val intent = Intent(context, AppointmentReceiver::class.java).apply {
+            action = ACTION_APPT
+        }
+        am(context).cancel(
+            PendingIntent.getBroadcast(
+                context, apptRequestCode(apptId), intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        )
+    }
+
+    /** Deterministic request code for appointments, disjoint from dose codes. */
+    private fun apptRequestCode(apptId: Long): Int =
+        (1_600_000_000 + (apptId % 200_000_000L)).toInt()
 
     /** Epoch millis of one dose on the day starting at dayStart. */
     fun instantOf(prefs: Prefs, dayStart: Long, d: DoseTime): Long =

@@ -64,9 +64,29 @@
             android:taskAffinity=""
             android:theme="@style/Theme.MediRemind.Lock"
             android:turnScreenOn="true" />
+        <activity
+            android:name="com.example.mediremind.ui.AppointmentsActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.mediremind.ui.MainActivity" />
+        <activity
+            android:name="com.example.mediremind.ui.AddAppointmentActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.mediremind.ui.AppointmentsActivity" />
+        <activity
+            android:name="com.example.mediremind.ui.AppointmentReminderActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.MediRemind.Lock"
+            android:turnScreenOn="true" />
 
         <receiver
             android:name="com.example.mediremind.receivers.DoseAlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.example.mediremind.receivers.AppointmentReceiver"
             android:exported="false" />
         <receiver
             android:name="com.example.mediremind.receivers.MissedCheckReceiver"

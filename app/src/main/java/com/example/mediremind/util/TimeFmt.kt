@@ -12,6 +12,17 @@ object TimeFmt {
     fun time(context: Context, millis: Long): String =
         android.text.format.DateFormat.getTimeFormat(context).format(Date(millis))
 
+    /** Localised date string, e.g. "28 Sep 2026" – language of the app, not the phone. */
+    fun date(context: Context, millis: Long): String =
+        java.text.DateFormat.getDateInstance(
+            java.text.DateFormat.MEDIUM,
+            java.util.Locale(com.example.mediremind.data.Prefs(context).langCode())
+        ).format(Date(millis))
+
+    /** Localised "28 Sep 2026, 10:30 AM". */
+    fun dateTime(context: Context, millis: Long): String =
+        "${date(context, millis)}, ${time(context, millis)}"
+
     fun mealName(context: Context, meal: Int): String = when (meal) {
         1 -> context.getString(R.string.meal_breakfast)
         2 -> context.getString(R.string.meal_lunch)

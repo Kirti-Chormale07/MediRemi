@@ -31,9 +31,12 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
     private lateinit var edtPatient: EditText
     private lateinit var edtGuardian: EditText
+    private lateinit var edtDoctorName: EditText
+    private lateinit var edtDoctorPhone: EditText
     private lateinit var radLang: RadioGroup
     private lateinit var spnGrace: Spinner
     private lateinit var chkTwilio: android.widget.CheckBox
+    private lateinit var chkVoice: android.widget.CheckBox
     private lateinit var edtSid: EditText
     private lateinit var edtToken: EditText
     private lateinit var edtFrom: EditText
@@ -62,8 +65,14 @@ class SettingsActivity : AppCompatActivity() {
 
         edtPatient.setText(prefs.patientName)
         edtGuardian.setText(prefs.guardian)
+        edtDoctorName = findViewById(R.id.edtDoctorName)
+        edtDoctorPhone = findViewById(R.id.edtDoctorPhone)
+        edtDoctorName.setText(prefs.doctorName)
+        edtDoctorPhone.setText(prefs.doctorPhone)
 
         chkTwilio = findViewById(R.id.chkTwilio)
+        chkVoice = findViewById(R.id.chkVoice)
+        chkVoice.isChecked = prefs.voiceEnabled
         edtSid = findViewById(R.id.edtSid)
         edtToken = findViewById(R.id.edtToken)
         edtFrom = findViewById(R.id.edtFrom)
@@ -177,6 +186,12 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
 
+        val docPhone = edtDoctorPhone.text.toString().trim()
+        if (docPhone.isNotEmpty() && docPhone.filter { it.isDigit() }.length < 10) {
+            Toast.makeText(this, R.string.err_phone, Toast.LENGTH_LONG).show()
+            return
+        }
+
         // Twilio cloud SMS: all three fields required when the switch is on.
         val twOn = chkTwilio.isChecked
         val sid = edtSid.text.toString().trim()
@@ -189,10 +204,13 @@ class SettingsActivity : AppCompatActivity() {
 
         prefs.patientName = edtPatient.text.toString().trim()
         prefs.guardian = phone
+        prefs.doctorName = edtDoctorName.text.toString().trim()
+        prefs.doctorPhone = docPhone
         prefs.twilioEnabled = twOn
         prefs.twilioSid = sid
         prefs.twilioToken = token
         prefs.twilioFrom = from
+        prefs.voiceEnabled = chkVoice.isChecked
         prefs.graceMin = graceValue
         prefs.breakfast = breakfast
         prefs.lunch = lunch

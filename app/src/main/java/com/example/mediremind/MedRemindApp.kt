@@ -53,11 +53,23 @@ class MedRemindApp : Application() {
             setSound(sound, audio)
         }
 
-        nm.createNotificationChannels(listOf(doses, alerts))
+        val appts = android.app.NotificationChannel(
+            CHANNEL_APPTS,
+            ctx.getString(R.string.notif_appt_channel_name),
+            android.app.NotificationManager.IMPORTANCE_HIGH
+        ).apply {
+            description = ctx.getString(R.string.notif_appt_channel_desc)
+            enableVibration(true)
+            vibrationPattern = longArrayOf(0, 500, 300, 500, 300, 500)
+            setSound(sound, audio)
+        }
+
+        nm.createNotificationChannels(listOf(doses, alerts, appts))
     }
 
     companion object {
         const val CHANNEL_DOSES = "dose_reminders"
         const val CHANNEL_ALERTS = "missed_alerts"
+        const val CHANNEL_APPTS = "appointment_reminders"
     }
 }

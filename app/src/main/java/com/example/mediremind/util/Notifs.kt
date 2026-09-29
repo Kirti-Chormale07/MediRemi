@@ -98,6 +98,46 @@ object Notifs {
         NotificationManagerCompat.from(context).cancel((1_000_000 + medId).toInt())
     }
 
+    /** High-priority "doctor appointment coming up" notification. */
+    fun showAppointment(context: Context, apptId: Long) {
+        if (!canPost(context)) return
+        val ctx = LocaleHelper.wrap(context)
+        val appt = com.example.mediremind.data.Db(ctx).getAppointment(apptId) ?: return
+
+        val whenText = TimeFmt.dateTime(ctx, appt.at)
+        val title = ctx.getString(R.string.notif_appt_title)
+        val body = ctx.getString(R.string.notif_body, appt.doctor, whenText)
+
+        val open = Intent(ctx, com.example.mediremind.ui.AppointmentReminderActivity::class.java)
+            .putExtra(Scheduler.EXTRA_APPT_ID, appt.id)
+        val openPi = PendingIntent.getActivity(
+            ctx, apptNotificationId(appt.id), open,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(ctx, MedRemindApp.CHANNEL_APPTS)
+            .setSmallIcon(R.drawable.ic_stat_pill)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("$body\n${appt.reason} ${appt.place}".trim()))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setAutoCancel(true)
+            .setContentIntent(openPi)
+            .setFullScreenIntent(openPi, true)
+            .build()
+
+        NotificationManagerCompat.from(ctx).notify(apptNotificationId(appt.id), notification)
+    }
+
+    fun cancelAppointment(context: Context, apptId: Long) {
+        NotificationManagerCompat.from(context).cancel(apptNotificationId(apptId))
+    }
+
+    /** Appointment notifications live above 2,000,000 – away from dose ids. */
+    private fun apptNotificationId(apptId: Long): Int = (2_000_000 + apptId).toInt()
+
     private fun actionPi(context: Context, action: String, medId: Long, at: Long): PendingIntent {
         val intent = Intent(context, ActionReceiver::class.java).apply {
             this.action = action

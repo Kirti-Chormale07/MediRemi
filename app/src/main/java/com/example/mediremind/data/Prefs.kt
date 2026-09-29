@@ -15,10 +15,24 @@ class Prefs(context: Context) {
             sp.edit().putString("patient", value).apply()
         }
 
+    /** Guardian's mobile number (SOS / missed-dose SMS). */
     var guardian: String
         get() = sp.getString("guardian", "") ?: ""
         set(value) {
             sp.edit().putString("guardian", value).apply()
+        }
+
+    /** Family doctor – one-tap emergency call from the home screen. */
+    var doctorName: String
+        get() = sp.getString("doctor_name", "") ?: ""
+        set(value) {
+            sp.edit().putString("doctor_name", value).apply()
+        }
+
+    var doctorPhone: String
+        get() = sp.getString("doctor_phone", "") ?: ""
+        set(value) {
+            sp.edit().putString("doctor_phone", value).apply()
         }
 
     /** Twilio cloud SMS (works even when the phone has no SIM). */
@@ -89,6 +103,13 @@ class Prefs(context: Context) {
         get() = sp.getBoolean("asked_alarm", false)
         set(value) {
             sp.edit().putBoolean("asked_alarm", value).apply()
+        }
+
+    /** Speak the reminder out loud (default ON). */
+    var voiceEnabled: Boolean
+        get() = sp.getBoolean("voice_on", true)
+        set(value) {
+            sp.edit().putBoolean("voice_on", value).apply()
         }
 
     /** Meal id: 1 breakfast, 2 lunch, 3 snack, 4 dinner. Returns minutes of day. */
