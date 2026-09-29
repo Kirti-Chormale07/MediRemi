@@ -20,7 +20,9 @@ guardian** — in the same language.
 | 📸 **Medicine photo** | Camera or gallery photo of the tablet/bottle so elders recognise it instantly |
 | 🌐 **Twilio SMS API** | Guardian SMS sent via Twilio cloud (no SIM needed in the phone), automatic SIM fallback |
 | 📦 **Stock & refill alerts** | Tracks doses remaining, warns when only ≤5 are left |
-| 🔊 **Voice announcement** | Speaks e.g. *"रमेश! अब Metformin लेने का समय है, 1 गोली।"* |
+| 🔊 **Voice announcement** | Speaks the reminder out loud at alarm time **and** on the full-screen page, in the chosen language (switchable in Settings) |
+| 🩺 **Emergency doctor** | Family doctor's name + number in Settings → one big blue **Doctor** button opens the dialler |
+| 📅 **Doctor appointments** | Add a visit (doctor, reason, place, date, time) → full-screen reminder + voice **15 min / 1 h / 1 day before** (or at the time) |
 | 🆘 **SOS button** | One big red button → call guardian or send SOS SMS |
 | 📊 **Weekly report** | % of doses taken, per-day taken/missed, guardian-informed history |
 | 📵 **100% offline** | Local SQLite database, no internet needed, no ads |
@@ -29,7 +31,7 @@ guardian** — in the same language.
 
 - Text sizes 18–40 sp, buttons ≥ 64 dp tall
 - High-contrast colours, status chips (green ✓ Taken / red ✗ Missed)
-- Only 4 buttons on the home screen
+- 6 big buttons on the home screen (medicines, settings, report, SOS, doctor, appointments)
 - Every screen in one language — no mixed English labels
 
 ---
@@ -124,6 +126,42 @@ if Twilio is off or fails. Requires the `INTERNET` permission (already declared)
 
 ---
 
+## 🔊 Voice reminders (spoken in the selected language)
+
+The dose announcement is spoken **from the alarm itself** (`DoseAlarmReceiver`),
+so it works even when the screen is off or another app is open — plus on the
+full-screen page. `util/VoiceAnnouncer.kt` guarantees the same dose is never
+announced twice (`speakOnce` de-duplicates by dose key) and re-applies the
+selected language on every utterance, so changing the language in Settings takes
+effect on the very next reminder. Turn it off in **Settings → Speak the reminder
+out loud**.
+
+*No voice?* Install/enable a TTS engine (e.g. Google TTS) and download the
+हिंदी / मराठी / ગુજરાતી language data — without it the app falls back to the
+device's default voice.
+
+## 🩺 Emergency doctor contact
+
+1. **Settings → Family doctor** → enter the doctor's name and mobile number
+2. Home screen → big blue **🩺 Doctor** button → confirm → the phone's dialler
+   opens with the number (the app never places the call by itself)
+
+## 📅 Doctor appointment reminders
+
+1. Home screen → **📅 Appointments → + Add appointment**
+2. Fill in the doctor's name, reason, place, date & time, and pick the lead time:
+   **at the time / 15 minutes / 1 hour / 1 day before**
+3. At the lead time the app shows a **full-screen reminder** (works on the lock
+   screen) and **speaks it in the chosen language**:
+   *"रमेश! डॉक्टर शर्मा के साथ अपॉइंटमेंट है, 10:30 बजे।"* — with a
+   **📞 Call the doctor** button on the reminder itself
+
+Appointments live in the same SQLite DB (table `appointments`, schema v2 – the
+upgrade keeps all existing medicines and history) and are re-armed after reboot,
+at midnight and on every app start (`Scheduler.scheduleAppointments`).
+
+---
+
 ## Project structure
 
 ```
@@ -135,25 +173,29 @@ MediRemind/
    └─ src/main/
       ├─ AndroidManifest.xml             # permissions + receivers
       ├─ java/com/example/mediremind/
-      │  ├─ MedRemindApp.kt              # notification channels
-      │  ├─ data/  Db.kt, Prefs.kt       # SQLite (medicines, dose log) + settings
+      │  ├─ MedRemindApp.kt              # notification channels (doses, alerts, appointments)
+      │  ├─ data/  Db.kt, Prefs.kt       # SQLite (medicines, dose log, appointments) + settings
       │  ├─ util/
-      │  │  ├─ Scheduler.kt              # AlarmManager: dose + escalation + midnight
+      │  │  ├─ Scheduler.kt              # AlarmManager: dose + escalation + appointments + midnight
       │  │  ├─ DoseActions.kt            # taken / snooze / skip logic
       │  │  ├─ Notifs.kt                 # notifications (localised, big buttons)
+      │  │  ├─ VoiceAnnouncer.kt         # spoken reminders, de-duplicated, locale-aware
       │  │  ├─ SmsHelper.kt              # guardian SMS (localised)
       │  │  ├─ TimeFmt.kt, LocaleHelper.kt, DoseMath.kt, ImageUtil.kt
       │  ├─ receivers/
-      │  │  ├─ DoseAlarmReceiver.kt      # time reached → ring + arm escalation
+      │  │  ├─ DoseAlarmReceiver.kt      # time reached → ring + speak + arm escalation
+      │  │  ├─ AppointmentReceiver.kt    # appointment lead time → ring + speak
       │  │  ├─ MissedCheckReceiver.kt    # no answer → SMS to guardian
       │  │  ├─ ActionReceiver.kt         # notification buttons
       │  │  ├─ DayRolloverReceiver.kt    # midnight re-schedule
       │  │  └─ BootReceiver.kt           # reboot re-schedule
       │  └─ ui/
-      │     ├─ MainActivity.kt + DoseAdapter.kt   # today's timeline, SOS, adherence
+      │     ├─ MainActivity.kt + DoseAdapter.kt   # today's timeline, SOS, doctor, adherence
       │     ├─ ReminderActivity.kt       # full-screen, lock-screen, speaks (TTS)
+      │     ├─ AppointmentReminderActivity.kt  # full-screen appointment reminder + call doctor
+      │     ├─ AppointmentsActivity.kt + AddAppointmentActivity.kt  # appointment list/editor
       │     ├─ AddMedicineActivity.kt    # photo, dose times, meal offsets, stock
-      │     ├─ SettingsActivity.kt       # name, guardian, language, grace, meal times
+      │     ├─ SettingsActivity.kt       # name, guardian, doctor, language, grace, Twilio
       │     └─ ReportActivity.kt         # weekly %, missed history
       └─ res/
          ├─ values/        # English (default)
@@ -191,4 +233,5 @@ Dose time ──► DoseAlarmReceiver ──► full-screen ReminderActivity + n
 - Recurring refill orders, weekly medicine box (7-day pill organiser) view
 - Export report as PDF for the doctor
 #   s m a r t - m e d i c i n e - r e m i n d e r  
+ #   M e d i R e m i n d  
  
