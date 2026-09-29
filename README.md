@@ -234,4 +234,5 @@ Dose time ──► DoseAlarmReceiver ──► full-screen ReminderActivity + n
 - Export report as PDF for the doctor
 #   s m a r t - m e d i c i n e - r e m i n d e r  
  #   M e d i R e m i n d  
+ #   M e d i R e m i n d  
  
