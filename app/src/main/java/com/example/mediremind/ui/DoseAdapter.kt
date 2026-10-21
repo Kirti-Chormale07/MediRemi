@@ -11,7 +11,10 @@ import com.example.mediremind.data.Status
 import com.example.mediremind.util.ImageUtil
 import com.example.mediremind.util.TimeFmt
 
-class DoseAdapter(private val onClick: (Row) -> Unit) :
+class DoseAdapter(
+    private val onClick: (Row) -> Unit,
+    private val onTaken: (Row) -> Unit
+) :
     RecyclerView.Adapter<DoseAdapter.VH>() {
 
     data class Row(
@@ -40,6 +43,7 @@ class DoseAdapter(private val onClick: (Row) -> Unit) :
         val stock: TextView = view.findViewById(R.id.txtStock)
         val time: TextView = view.findViewById(R.id.txtTime)
         val status: TextView = view.findViewById(R.id.txtStatus)
+        val check: android.widget.ImageButton = view.findViewById(R.id.btnCheck)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -106,6 +110,14 @@ class DoseAdapter(private val onClick: (Row) -> Unit) :
                 )
             }
         }
+
+        // One-tap answer: hollow circle = not taken yet, solid = already taken.
+        if (row.status == Status.TAKEN) {
+            holder.check.setImageResource(R.drawable.ic_check_done)
+        } else {
+            holder.check.setImageResource(R.drawable.ic_check_empty)
+        }
+        holder.check.setOnClickListener { onTaken(row) }
 
         holder.itemView.setOnClickListener { onClick(row) }
     }

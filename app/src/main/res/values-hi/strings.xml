@@ -20,6 +20,11 @@
     <string name="low_stock">⚠ सिर्फ %1$d बची हैं – जल्दी भरवाएँ!</string>
     <string name="week_adherence">पिछले 7 दिनों में ली गई खुराक: %1$d%%</string>
     <string name="missed_banner">खुराक छूट गई – परिजन को सूचित किया गया ✉</string>
+    <string name="tab_all">सभी</string>
+    <string name="tab_morning">सुबह</string>
+    <string name="tab_afternoon">दोपहर</string>
+    <string name="tab_evening">शाम</string>
+    <string name="empty_filter">इस समय कोई दवा नहीं है।</string>
 
     <string name="add_title">दवा जोड़ें</string>
     <string name="edit_title">दवा बदलें</string>
@@ -60,12 +65,7 @@
     <string name="delete_title">यह दवा हटाएँ?</string>
     <string name="delete_msg">इसके अलार्म बंद हो जाएँगे।</string>
 
-    <string name="sms_api_header">SMS सेवा (Twilio – बिना SIM के चलती है)</string>
-    <string name="chk_twilio">परिजन को इंटरनेट से SMS भेजें (Twilio)</string>
-    <string name="hint_sid">Twilio Account SID</string>
-    <string name="hint_token">Twilio Auth Token</string>
-    <string name="hint_from">Twilio नंबर, जैसे +15551234567</string>
-    <string name="err_twilio">तीनों Twilio फ़ील्ड भरें, या इसे बंद करें</string>
+    <string name="sms_sim_note">संदेश इसी फ़ोन के अपने SIM कार्ड से भेजे जाते हैं।</string>
     <string name="settings_title">सेटिंग्स</string>
     <string name="lbl_patient">बुज़ुर्ग का नाम</string>
     <string name="hint_patient">जैसे रमेश</string>
@@ -182,6 +182,11 @@
     <string name="sms_missed">⚠ खुराक छूट गई: %1$s ने %2$s (%3$s) %4$s बजे नहीं ली और जवाब नहीं दिया। कृपया ध्यान दें। (MediRemind)</string>
     <string name="sms_skip">खुराक छोड़ी: %1$s ने %2$s (%3$s) %4$s बजे छोड़ दी। (MediRemind)</string>
     <string name="sms_sos">🆘 SOS: %1$s को तुरंत मदद चाहिए। कृपया तुरंत कॉल करें। (MediRemind)</string>
+    <string name="btn_test_sms">✉ परीक्षण SMS भेजें</string>
+    <string name="sms_test_msg">MediRemind से परीक्षण – परिजन अलर्ट चालू हैं।</string>
+    <string name="sms_test_sent">परिजन को परीक्षण SMS भेजा गया ✓</string>
+    <string name="sms_perm_title">SMS अनुमति आवश्यक</string>
+    <string name="sms_perm_msg">खुराक छूट जाने पर परिजन को चेतावनी देने के लिए MediRemind को SMS भेजने की अनुमति देनी होगी। सेटिंग्स खोलें, फिर अनुमतियाँ, फिर SMS चुनें और “अनुमति दें” दबाएँ।</string>
 
     <string name="cancel">रद्द करें</string>
     <string name="ok">ठीक है</string>

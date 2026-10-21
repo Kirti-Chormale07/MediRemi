@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.mediremind.util.SmsNumberTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-20T09:36:48.078Z" hostname="LAPTOP-ARPM787O" time="0.012">
+  <properties/>
+  <testcase name="plain ten digit number passes through unchanged" classname="com.example.mediremind.util.SmsNumberTest" time="0.009"/>
+  <testcase name="plus and double-zero prefixes stay international" classname="com.example.mediremind.util.SmsNumberTest" time="0.001"/>
+  <testcase name="spaces and dashes are removed" classname="com.example.mediremind.util.SmsNumberTest" time="0.0"/>
+  <testcase name="brackets are removed" classname="com.example.mediremind.util.SmsNumberTest" time="0.0"/>
+  <testcase name="trunk zero of a national number is dropped" classname="com.example.mediremind.util.SmsNumberTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -14,224 +14,222 @@
 11    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 11-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:4:5-77
 11-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:4:22-74
-12    <uses-permission android:name="android.permission.INTERNET" />
+12    <uses-permission android:name="android.permission.SEND_SMS" />
 12-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:5:5-67
 12-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:5:22-64
-13    <uses-permission android:name="android.permission.SEND_SMS" />
-13-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:6:5-67
-13-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:6:22-64
-14    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-14-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:7:5-79
-14-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:7:22-76
-15    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-15-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:8:5-74
-15-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:8:22-71
-16    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+13    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+13-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:6:5-79
+13-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:6:22-76
+14    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+14-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:7:5-74
+14-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:7:22-71
+15    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+15-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:8:5-81
+15-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:8:22-78
+16    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 16-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:9:5-81
 16-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:9:22-78
-17    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-17-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:10:5-81
-17-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:10:22-78
-18    <uses-permission android:name="android.permission.VIBRATE" />
-18-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:11:5-66
-18-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:11:22-63
-19    <uses-permission android:name="android.permission.WAKE_LOCK" />
-19-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:12:5-68
-19-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:12:22-65
-20
-21    <permission
-21-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
-22        android:name="com.example.mediremind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-22-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
-23        android:protectionLevel="signature" />
-23-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
-24
-25    <uses-permission android:name="com.example.mediremind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-25-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-25-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
-26
-27    <application
-27-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:14:5-111:19
-28        android:name="com.example.mediremind.MedRemindApp"
-28-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:15:9-37
-29        android:allowBackup="true"
-29-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:16:9-35
-30        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-30-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
-31        android:debuggable="true"
-32        android:extractNativeLibs="false"
-32-->INJECTED
-33        android:icon="@drawable/ic_launcher"
-33-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:17:9-45
-34        android:label="@string/app_name"
-34-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:18:9-41
-35        android:supportsRtl="true"
-35-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:19:9-35
+17    <uses-permission android:name="android.permission.VIBRATE" />
+17-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:10:5-66
+17-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:10:22-63
+18    <uses-permission android:name="android.permission.WAKE_LOCK" />
+18-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:11:5-68
+18-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:11:22-65
+19
+20    <permission
+20-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+21        android:name="com.example.mediremind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+21-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+22        android:protectionLevel="signature" />
+22-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+23
+24    <uses-permission android:name="com.example.mediremind.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+24-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+24-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+25
+26    <application
+26-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:13:5-110:19
+27        android:name="com.example.mediremind.MedRemindApp"
+27-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:14:9-37
+28        android:allowBackup="true"
+28-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:15:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.9.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\53bbd1f4272c554e66fd6401e327b35b\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+30        android:debuggable="true"
+31        android:extractNativeLibs="false"
+31-->INJECTED
+32        android:icon="@drawable/ic_launcher"
+32-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:16:9-45
+33        android:label="@string/app_name"
+33-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:17:9-41
+34        android:supportsRtl="true"
+34-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:18:9-35
+35        android:testOnly="true"
 36        android:theme="@style/Theme.MediRemind" >
-36-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:20:9-48
+36-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:19:9-48
 37        <activity
-37-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:22:9-29:20
+37-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:21:9-28:20
 38            android:name="com.example.mediremind.ui.MainActivity"
-38-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:23:13-44
+38-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:22:13-44
 39            android:exported="true" >
-39-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:24:13-36
+39-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:23:13-36
 40            <intent-filter>
-40-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:25:13-28:29
+40-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:24:13-27:29
 41                <action android:name="android.intent.action.MAIN" />
-41-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:26:17-69
-41-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:26:25-66
+41-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:25:17-69
+41-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:25:25-66
 42
 43                <category android:name="android.intent.category.LAUNCHER" />
-43-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:27:17-77
-43-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:27:27-74
+43-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:26:17-77
+43-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:26:27-74
 44            </intent-filter>
 45        </activity>
 46        <activity
-46-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:31:9-34:61
+46-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:30:9-33:61
 47            android:name="com.example.mediremind.ui.AddMedicineActivity"
-47-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:32:13-51
+47-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:31:13-51
 48            android:exported="false"
-48-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:33:13-37
+48-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:32:13-37
 49            android:parentActivityName="com.example.mediremind.ui.MainActivity" />
-49-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:34:13-58
+49-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:33:13-58
 50        <activity
-50-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:36:9-39:61
+50-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:35:9-38:61
 51            android:name="com.example.mediremind.ui.SettingsActivity"
-51-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:37:13-48
+51-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:36:13-48
 52            android:exported="false"
-52-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:38:13-37
+52-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:37:13-37
 53            android:parentActivityName="com.example.mediremind.ui.MainActivity" />
-53-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:39:13-58
+53-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:38:13-58
 54        <activity
-54-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:41:9-44:61
+54-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:40:9-43:61
 55            android:name="com.example.mediremind.ui.ReportActivity"
-55-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:42:13-46
+55-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:41:13-46
 56            android:exported="false"
-56-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:43:13-37
+56-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:42:13-37
 57            android:parentActivityName="com.example.mediremind.ui.MainActivity" />
-57-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:44:13-58
+57-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:43:13-58
 58        <activity
-58-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:46:9-54:43
+58-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:45:9-53:43
 59            android:name="com.example.mediremind.ui.ReminderActivity"
-59-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:47:13-48
+59-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:46:13-48
 60            android:excludeFromRecents="true"
-60-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:49:13-46
+60-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:48:13-46
 61            android:exported="false"
-61-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:48:13-37
+61-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:47:13-37
 62            android:launchMode="singleTop"
-62-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:50:13-43
+62-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:49:13-43
 63            android:showWhenLocked="true"
-63-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:51:13-42
+63-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:50:13-42
 64            android:taskAffinity=""
-64-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:52:13-36
+64-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:51:13-36
 65            android:theme="@style/Theme.MediRemind.Lock"
-65-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:53:13-57
+65-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:52:13-57
 66            android:turnScreenOn="true" />
-66-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:54:13-40
+66-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:53:13-40
 67        <activity
-67-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:56:9-59:61
+67-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:55:9-58:61
 68            android:name="com.example.mediremind.ui.AppointmentsActivity"
-68-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:57:13-52
+68-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:56:13-52
 69            android:exported="false"
-69-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:58:13-37
+69-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:57:13-37
 70            android:parentActivityName="com.example.mediremind.ui.MainActivity" />
-70-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:59:13-58
+70-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:58:13-58
 71        <activity
-71-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:61:9-64:69
+71-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:60:9-63:69
 72            android:name="com.example.mediremind.ui.AddAppointmentActivity"
-72-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:62:13-54
+72-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:61:13-54
 73            android:exported="false"
-73-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:63:13-37
+73-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:62:13-37
 74            android:parentActivityName="com.example.mediremind.ui.AppointmentsActivity" />
-74-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:64:13-66
+74-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:63:13-66
 75        <activity
-75-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:66:9-74:43
+75-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:65:9-73:43
 76            android:name="com.example.mediremind.ui.AppointmentReminderActivity"
-76-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:67:13-59
+76-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:66:13-59
 77            android:excludeFromRecents="true"
-77-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:69:13-46
+77-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:68:13-46
 78            android:exported="false"
-78-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:68:13-37
+78-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:67:13-37
 79            android:launchMode="singleTop"
-79-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:70:13-43
+79-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:69:13-43
 80            android:showWhenLocked="true"
-80-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:71:13-42
+80-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:70:13-42
 81            android:taskAffinity=""
-81-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:72:13-36
+81-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:71:13-36
 82            android:theme="@style/Theme.MediRemind.Lock"
-82-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:73:13-57
+82-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:72:13-57
 83            android:turnScreenOn="true" />
-83-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:74:13-40
+83-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:73:13-40
 84
 85        <receiver
-85-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:76:9-78:40
+85-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:75:9-77:40
 86            android:name="com.example.mediremind.receivers.DoseAlarmReceiver"
-86-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:77:13-56
+86-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:76:13-56
 87            android:exported="false" />
-87-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:78:13-37
+87-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:77:13-37
 88        <receiver
-88-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:79:9-81:40
+88-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:78:9-80:40
 89            android:name="com.example.mediremind.receivers.AppointmentReceiver"
-89-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:80:13-58
+89-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:79:13-58
 90            android:exported="false" />
-90-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:81:13-37
+90-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:80:13-37
 91        <receiver
-91-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:82:9-84:40
+91-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:81:9-83:40
 92            android:name="com.example.mediremind.receivers.MissedCheckReceiver"
-92-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:83:13-58
+92-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:82:13-58
 93            android:exported="false" />
-93-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:84:13-37
+93-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:83:13-37
 94        <receiver
-94-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:85:9-87:40
+94-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:84:9-86:40
 95            android:name="com.example.mediremind.receivers.ActionReceiver"
-95-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:86:13-53
+95-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:85:13-53
 96            android:exported="false" />
-96-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:87:13-37
+96-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:86:13-37
 97        <receiver
-97-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:88:9-90:40
+97-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:87:9-89:40
 98            android:name="com.example.mediremind.receivers.DayRolloverReceiver"
-98-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:89:13-58
+98-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:88:13-58
 99            android:exported="false" />
-99-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:90:13-37
+99-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:89:13-37
 100        <receiver
-100-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:91:9-100:20
+100-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:90:9-99:20
 101            android:name="com.example.mediremind.receivers.BootReceiver"
-101-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:92:13-51
+101-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:91:13-51
 102            android:exported="true" >
-102-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:93:13-36
+102-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:92:13-36
 103            <intent-filter>
-103-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:94:13-99:29
+103-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:93:13-98:29
 104                <action android:name="android.intent.action.BOOT_COMPLETED" />
-104-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:95:17-79
-104-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:95:25-76
+104-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:94:17-79
+104-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:94:25-76
 105                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-105-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:96:17-84
-105-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:96:25-81
+105-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:95:17-84
+105-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:95:25-81
 106                <action android:name="android.intent.action.TIME_SET" />
-106-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:97:17-73
-106-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:97:25-70
+106-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:96:17-73
+106-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:96:25-70
 107                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-107-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:98:17-81
-107-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:98:25-78
+107-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:97:17-81
+107-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:97:25-78
 108            </intent-filter>
 109        </receiver>
 110
 111        <provider
 111-->INJECTED
 112            android:name="androidx.core.content.FileProvider"
-112-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:103:13-62
+112-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:102:13-62
 113            android:authorities="com.example.mediremind.fileprovider"
 113-->INJECTED
 114            android:exported="false"
-114-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:105:13-37
+114-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:104:13-37
 115            android:grantUriPermissions="true" >
-115-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:106:13-47
+115-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:105:13-47
 116            <meta-data
-116-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:107:13-109:54
+116-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:106:13-108:54
 117                android:name="android.support.FILE_PROVIDER_PATHS"
-117-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:108:17-67
+117-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:107:17-67
 118                android:resource="@xml/file_paths" />
-118-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:109:17-51
+118-->C:\Users\Kirti\MediRemind\app\src\main\AndroidManifest.xml:108:17-51
 119        </provider>
 120        <provider
 120-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Kirti\.gradle\caches\9.6.0\transforms\0099f54d8f77049f0d3bac28568b7b11\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20

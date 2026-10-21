@@ -34,6 +34,14 @@
             android:inputType="textPersonName" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/sms_sim_note"
+            android:textColor="#5F6368"
+            android:textSize="15sp" />
+
+        <TextView
             style="@style/FieldLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +55,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_guardian"
             android:inputType="phone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTestSms"
+            style="@style/BigButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_test_sms" />
 
         <TextView
             style="@style/FieldLabel"
@@ -69,45 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_doctor_phone"
-            android:inputType="phone" />
-
-        <TextView
-            style="@style/FieldLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/sms_api_header" />
-
-        <CheckBox
-            android:id="@+id/chkTwilio"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:checked="false"
-            android:text="@string/chk_twilio"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/edtSid"
-            style="@style/BigField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_sid"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/edtToken"
-            style="@style/BigField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_token"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/edtFrom"
-            style="@style/BigField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_from"
             android:inputType="phone" />
 
         <TextView

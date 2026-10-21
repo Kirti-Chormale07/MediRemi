@@ -18,8 +18,9 @@ guardian** — in the same language.
 | ⏰ **Missed-dose escalation** | If nobody taps an answer within the grace period (5–60 min, configurable) → automatic **SMS to the guardian** |
 | 🍽 **Meal-aware schedule** | Stores breakfast/lunch/evening-tea/dinner times; dose can be "30 min after lunch" etc. |
 | 📸 **Medicine photo** | Camera or gallery photo of the tablet/bottle so elders recognise it instantly |
-| 🌐 **Twilio SMS API** | Guardian SMS sent via Twilio cloud (no SIM needed in the phone), automatic SIM fallback |
 | 📦 **Stock & refill alerts** | Tracks doses remaining, warns when only ≤5 are left |
+| ✅ **One-tap “Taken”** | Big checkmark button on every dose row — record a dose straight from the home list |
+| 🕐 **Time-of-day filters** | All / Morning / Afternoon / Evening tabs filter today’s doses |
 | 🔊 **Voice announcement** | Speaks the reminder out loud at alarm time **and** on the full-screen page, in the chosen language (switchable in Settings) |
 | 🩺 **Emergency doctor** | Family doctor's name + number in Settings → one big blue **Doctor** button opens the dialler |
 | 📅 **Doctor appointments** | Add a visit (doctor, reason, place, date, time) → full-screen reminder + voice **15 min / 1 h / 1 day before** (or at the time) |
@@ -88,41 +89,38 @@ cd C:\Users\Kirti\MediRemind
    `MissedCheckReceiver` marks the dose missed, shows a red alert, and sends:
    `⚠ MISSED DOSE: Ramesh did not take Test (1 tablet) at 10:30 ...`
    to the guardian (in Hindi/Marathi/Gujarati if selected).
-5. Instead tap **✅ I took it** → stock decreases, no SMS, weekly report shows *taken*.
+5. Instead tap **✅ I took it** (reminder screen, notification button, or the big
+   checkmark on the home-screen row) → stock decreases, no SMS, weekly report shows *taken*.
+6. On the home screen, the **All / Morning / Afternoon / Evening** tabs filter today’s list,
+   and **Settings → Send test SMS** confirms guardian alerts work before you rely on them.
 
 **SMS on an emulator:** emulators cannot send real SMS — use a real phone with a SIM,
 or watch Logcat for `SmsHelper: SMS sent to …`.
 
 ---
 
-## Twilio SMS API setup (guardian alerts — no SIM needed)
+## How guardian SMS is sent (from the patient's own number)
 
-Missed-dose, skip and SOS messages are sent through **Twilio's REST API**
-(`util/SmsApi.kt`), and the app **automatically falls back to the phone's SIM**
-if Twilio is off or fails. Requires the `INTERNET` permission (already declared).
+Missed-dose, skipped-dose and SOS messages are **always sent from the elder's own
+SIM card** (`SmsManager` in `util/SmsHelper.kt`) — so the guardian receives them
+under the **patient's own mobile number**, exactly as if the elder had typed them.
 
-**5-minute setup:**
+- The messages are built **in the app's selected language** (Hindi/Marathi/Gujarati/English)
+- Guardian numbers are auto-cleaned before sending (spaces/dashes removed, trunk `0`
+  before a 10-digit number dropped) so the carrier doesn’t silently reject them
+- **Settings → “Send test SMS”** verifies the whole path in one tap; if `SEND_SMS` is
+  missing the app explains why and opens the system permission screen
+- The `SEND_SMS` permission is requested on first launch (already declared in the manifest)
+- The network/SIM work runs off the main thread (`goAsync()` in `MissedCheckReceiver`),
+  so the app stays responsive
+- The app needs **no internet at all** — everything is local
 
-1. Create a free account: https://www.twilio.com/try-twilio → verify email
-2. Open the **Console** → copy **Account SID** and **Auth Token**
-3. Get a trial sender number: Console → Phone Numbers → Manage → Active numbers →
-   **Get a trial number** (a +1… number) → that goes into *From*
-4. ⚠️ Trial accounts may only send **to verified** numbers:
-   Console → Phone Numbers → **Verified Caller IDs** → **Add** the guardian's number
-5. In the app: **Settings → SMS service (Twilio)** → paste SID, Auth Token, From
-   number → tick **“Send guardian SMS through internet”** → **Save Settings**
-6. Test the missed-dose flow, then check **Logcat** (filter `SmsHelper`):
-   - `Guardian SMS sent via Twilio` ✅
-   - `Twilio failed – trying SIM card instead` → Twilio rejected it
-     (most common: number not added as Verified Caller ID, error `21608`)
+**Requirement:** the patient's phone must have an **active SIM with SMS working**.
 
-**How it works technically**
-- `POST https://api.twilio.com/2010-04-01/Accounts/{SID}/Messages.json`
-- `Authorization: Basic base64(SID:Token)`, body `To/From/Body` form-encoded UTF-8
-  (Hindi/Marathi/Gujarati SMS text is percent-encoded correctly)
-- Numbers normalised to **E.164** — 10-digit Indian numbers auto-get `+91`
-- Network runs off the main thread (`goAsync()` in `MissedCheckReceiver`),
-  8 s timeouts, then SIM fallback
+Check Logcat (filter `SmsHelper`) — you should see:
+- `SMS sent via SIM card` ✅
+- `SEND_SMS permission missing` → the permission was denied; grant it in system settings
+- `SMS failed` → no SIM / no signal
 
 ---
 
@@ -195,7 +193,7 @@ MediRemind/
       │     ├─ AppointmentReminderActivity.kt  # full-screen appointment reminder + call doctor
       │     ├─ AppointmentsActivity.kt + AddAppointmentActivity.kt  # appointment list/editor
       │     ├─ AddMedicineActivity.kt    # photo, dose times, meal offsets, stock
-      │     ├─ SettingsActivity.kt       # name, guardian, doctor, language, grace, Twilio
+      │     ├─ SettingsActivity.kt       # name, guardian, doctor, language, grace
       │     └─ ReportActivity.kt         # weekly %, missed history
       └─ res/
          ├─ values/        # English (default)

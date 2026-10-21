@@ -1,5 +1,6 @@
 package com.example.mediremind.ui
 
+import android.Manifest
 import android.app.AlarmManager
 import android.app.TimePickerDialog
 import android.content.Context
@@ -17,11 +18,14 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mediremind.R
 import com.example.mediremind.data.Prefs
 import com.example.mediremind.util.LocaleHelper
 import com.example.mediremind.util.Scheduler
+import com.example.mediremind.util.SmsHelper
 import com.example.mediremind.util.TimeFmt
 import com.google.android.material.button.MaterialButton
 import java.util.Calendar
@@ -35,11 +39,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var edtDoctorPhone: EditText
     private lateinit var radLang: RadioGroup
     private lateinit var spnGrace: Spinner
-    private lateinit var chkTwilio: android.widget.CheckBox
     private lateinit var chkVoice: android.widget.CheckBox
-    private lateinit var edtSid: EditText
-    private lateinit var edtToken: EditText
-    private lateinit var edtFrom: EditText
 
     // Meal times held locally until Save is pressed.
     private var breakfast = 0
@@ -48,6 +48,12 @@ class SettingsActivity : AppCompatActivity() {
     private var dinner = 0
 
     private var graceValue = 15
+
+    /** Test-SMS flow: ask for SEND_SMS once, then send; if refused → settings dialog. */
+    private val smsPermLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) testSms() else showSmsPermDialog()
+        }
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
@@ -70,16 +76,8 @@ class SettingsActivity : AppCompatActivity() {
         edtDoctorName.setText(prefs.doctorName)
         edtDoctorPhone.setText(prefs.doctorPhone)
 
-        chkTwilio = findViewById(R.id.chkTwilio)
         chkVoice = findViewById(R.id.chkVoice)
         chkVoice.isChecked = prefs.voiceEnabled
-        edtSid = findViewById(R.id.edtSid)
-        edtToken = findViewById(R.id.edtToken)
-        edtFrom = findViewById(R.id.edtFrom)
-        chkTwilio.isChecked = prefs.twilioEnabled
-        edtSid.setText(prefs.twilioSid)
-        edtToken.setText(prefs.twilioToken)
-        edtFrom.setText(prefs.twilioFrom)
 
         when (prefs.langCode()) {
             "hi" -> radLang.check(R.id.radHi)
@@ -114,6 +112,8 @@ class SettingsActivity : AppCompatActivity() {
         bindMealButton(R.id.btnDinner, R.string.lbl_dinner_time) { dinner = it }
 
         findViewById<MaterialButton>(R.id.btnSave).setOnClickListener { save() }
+
+        findViewById<MaterialButton>(R.id.btnTestSms).setOnClickListener { testSms() }
 
         findViewById<MaterialButton>(R.id.btnAlarmPerm).setOnClickListener {
             if (Build.VERSION.SDK_INT >= 31) {
@@ -179,6 +179,45 @@ class SettingsActivity : AppCompatActivity() {
         return TimeFmt.time(this, cal.timeInMillis)
     }
 
+    /**
+     * Instant guardian-alert check: sends a test SMS to the number typed above,
+     * so the caregiver knows the escalation will really work at 2 a.m.
+     */
+    private fun testSms() {
+        val number = edtGuardian.text.toString().trim()
+        if (number.filter { it.isDigit() }.length < 10) {
+            Toast.makeText(this, R.string.err_phone, Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!SmsHelper.hasSmsPermission(this)) {
+            smsPermLauncher.launch(Manifest.permission.SEND_SMS)
+            return
+        }
+        SmsHelper.send(this, number, getString(R.string.sms_test_msg))
+        Toast.makeText(this, R.string.sms_test_sent, Toast.LENGTH_SHORT).show()
+    }
+
+    /** SEND_SMS refused → why it is needed + jump to the system permission screen. */
+    private fun showSmsPermDialog() {
+        if (isFinishing || isDestroyed) return
+        AlertDialog.Builder(this)
+            .setTitle(R.string.sms_perm_title)
+            .setMessage(R.string.sms_perm_msg)
+            .setPositiveButton(R.string.btn_settings) { _, _ ->
+                try {
+                    startActivity(
+                        Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:$packageName")
+                        )
+                    )
+                } catch (_: Exception) {
+                }
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
     private fun save() {
         val phone = edtGuardian.text.toString().trim()
         if (phone.isNotEmpty() && phone.filter { it.isDigit() }.length < 10) {
@@ -192,24 +231,10 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
 
-        // Twilio cloud SMS: all three fields required when the switch is on.
-        val twOn = chkTwilio.isChecked
-        val sid = edtSid.text.toString().trim()
-        val token = edtToken.text.toString().trim()
-        val from = edtFrom.text.toString().trim()
-        if (twOn && (sid.isEmpty() || token.isEmpty() || from.isEmpty())) {
-            Toast.makeText(this, R.string.err_twilio, Toast.LENGTH_LONG).show()
-            return
-        }
-
         prefs.patientName = edtPatient.text.toString().trim()
         prefs.guardian = phone
         prefs.doctorName = edtDoctorName.text.toString().trim()
         prefs.doctorPhone = docPhone
-        prefs.twilioEnabled = twOn
-        prefs.twilioSid = sid
-        prefs.twilioToken = token
-        prefs.twilioFrom = from
         prefs.voiceEnabled = chkVoice.isChecked
         prefs.graceMin = graceValue
         prefs.breakfast = breakfast

@@ -136,6 +136,15 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
+    <!-- All / Morning / Afternoon / Evening filter for today's list. -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/TabTextLarge" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -172,5 +181,16 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/btn_add_medicine" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtFilterEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/empty_filter"
+            android:textColor="#5F6368"
+            android:textSize="20sp"
+            android:visibility="gone" />
     </FrameLayout>
 </LinearLayout>

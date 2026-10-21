@@ -12,9 +12,9 @@ import com.example.mediremind.data.Prefs
 
 /**
  * Guardian SMS delivery.
- *  1) Twilio REST API (internet, no SIM needed) when configured in Settings
- *  2) automatic fallback to the phone's own SIM (SmsManager)
- * All messages are built in the app's selected language.
+ * Messages always go out from the elder's own SIM card (SmsManager),
+ * exactly as if the elder had typed them – so the guardian sees the
+ * patient's own number. All messages are built in the app's selected language.
  */
 object SmsHelper {
 
@@ -36,15 +36,23 @@ object SmsHelper {
 
     private fun deliver(context: Context, number: String, message: String) {
         if (number.isBlank()) return
-        val prefs = Prefs(context)
-        if (SmsApi.hasTwilioConfig(prefs)) {
-            if (SmsApi.sendTwilio(prefs, number, message)) {
-                Log.i(TAG, "Guardian SMS sent via Twilio")
-                return
-            }
-            Log.w(TAG, "Twilio failed – trying SIM card instead")
+        deviceSend(context, normalizeNumber(number), message)
+    }
+
+    /**
+     * Cleans a guardian number so the carrier won't silently reject it:
+     * strips spaces / dashes / brackets, turns a 00-prefix into +,
+     * and drops the trunk 0 in front of a national 10-digit number
+     * (e.g. "09876543210" → "9876543210"). Public for unit tests.
+     */
+    fun normalizeNumber(raw: String): String {
+        val s = raw.filterNot {
+            it.isWhitespace() || it == '-' || it == '(' || it == ')' || it == '.'
         }
-        deviceSend(context, number, message)
+        if (s.startsWith("00")) return "+" + s.substring(2)
+        if (s.startsWith("+")) return s
+        if (s.length == 11 && s.startsWith("0") && s.all { it.isDigit() }) return s.substring(1)
+        return s
     }
 
     private fun deviceSend(context: Context, number: String, message: String) {
@@ -52,9 +60,13 @@ object SmsHelper {
             Log.w(TAG, "SEND_SMS permission missing – SMS not sent")
             return
         }
+        if (number.isEmpty()) {
+            Log.w(TAG, "Empty guardian number – SMS not sent")
+            return
+        }
         try {
-            SmsManager.getDefault().sendTextMessage(number.trim(), null, message, null, null)
-            Log.i(TAG, "SMS sent via SIM card")
+            SmsManager.getDefault().sendTextMessage(number, null, message, null, null)
+            Log.i(TAG, "SMS sent via SIM card to $number")
         } catch (e: Exception) {
             Log.e(TAG, "SMS failed", e)
         }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.mediremind.AppointmentTriggerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-09-28T14:21:16.793Z" hostname="LAPTOP-ARPM787O" time="0.01">
+<testsuite name="com.example.mediremind.AppointmentTriggerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-20T09:36:48.041Z" hostname="LAPTOP-ARPM787O" time="0.012">
   <properties/>
   <testcase name="leadOptions_areAlwaysBeforeTheVisit" classname="com.example.mediremind.AppointmentTriggerTest" time="0.003"/>
-  <testcase name="appointmentStaysValid_untilItStarts" classname="com.example.mediremind.AppointmentTriggerTest" time="0.0"/>
+  <testcase name="appointmentStaysValid_untilItStarts" classname="com.example.mediremind.AppointmentTriggerTest" time="0.001"/>
   <testcase name="leadTime_subtractsMinutesFromAppointmentTime" classname="com.example.mediremind.AppointmentTriggerTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

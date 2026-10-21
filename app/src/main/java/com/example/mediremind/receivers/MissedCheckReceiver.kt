@@ -22,24 +22,23 @@ class MissedCheckReceiver : BroadcastReceiver() {
         if (medId < 0 || at <= 0) return
 
         val db = Db(context)
-        val status = db.logStatus(medId, at)
-        if (status == null || status != Status.PENDING) return // answered already
-
-        val med = db.getMedicine(medId)
-        val medName = med?.name
-            ?: db.logsBetween(at, at + 1).firstOrNull()?.medName
-            ?: return
+        val med = db.getMedicine(medId) ?: return
+        // The dose alarm may never have run (phone was off / app killed) –
+        // create the log row here so a long-overdue dose still escalates
+        // instead of silently doing nothing.
+        val status = db.ensureLog(med, at)
+        if (status != Status.PENDING) return // answered already
 
         db.updateLog(medId, at, Status.MISSED, guardianNotified = 1)
 
         val wrapped = LocaleHelper.wrap(context)
-        Notifs.showMissed(wrapped, medId, medName)
+        Notifs.showMissed(wrapped, medId, med.name)
 
-        // Keep the process alive until the (network/SIM) SMS has been delivered.
+        // Keep the process alive until the SIM has delivered the SMS.
         val pending = goAsync()
         Thread {
             try {
-                SmsHelper.sendMissedBlocking(context, medName, med?.dose ?: "", at)
+                SmsHelper.sendMissedBlocking(context, med.name, med.dose, at)
             } finally {
                 pending.finish()
             }

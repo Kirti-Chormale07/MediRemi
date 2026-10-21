@@ -8,6 +8,10 @@
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\drawable\\bg_chip_missed.xml"
     },
     {
+        "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_appointments.xml.flat",
+        "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\activity_appointments.xml"
+    },
+    {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_item_dose.xml.flat",
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\item_dose.xml"
     },
@@ -20,12 +24,24 @@
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\item_dose_edit.xml"
     },
     {
+        "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_item_appointment.xml.flat",
+        "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\item_appointment.xml"
+    },
+    {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_add_medicine.xml.flat",
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\activity_add_medicine.xml"
     },
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\drawable_ic_launcher.xml.flat",
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\drawable\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_add_appointment.xml.flat",
+        "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\activity_add_appointment.xml"
+    },
+    {
+        "merged": "com.example.mediremind.app-debug-31:/layout_item_dose.xml.flat",
+        "source": "com.example.mediremind.app-main-33:/layout/item_dose.xml"
     },
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_main.xml.flat",
@@ -36,12 +52,16 @@
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\drawable\\bg_chip_pending.xml"
     },
     {
-        "merged": "com.example.mediremind.app-debug-31:/layout_item_appointment.xml.flat",
-        "source": "com.example.mediremind.app-main-33:/layout/item_appointment.xml"
+        "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_appointment_reminder.xml.flat",
+        "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\activity_appointment_reminder.xml"
     },
     {
-        "merged": "com.example.mediremind.app-debug-31:/layout_activity_add_appointment.xml.flat",
-        "source": "com.example.mediremind.app-main-33:/layout/activity_add_appointment.xml"
+        "merged": "com.example.mediremind.app-debug-31:/drawable_ic_check_done.xml.flat",
+        "source": "com.example.mediremind.app-main-33:/drawable/ic_check_done.xml"
+    },
+    {
+        "merged": "com.example.mediremind.app-debug-31:/drawable_ic_check_empty.xml.flat",
+        "source": "com.example.mediremind.app-main-33:/drawable/ic_check_empty.xml"
     },
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\xml_file_paths.xml.flat",
@@ -54,10 +74,6 @@
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_reminder.xml.flat",
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\layout\\activity_reminder.xml"
-    },
-    {
-        "merged": "com.example.mediremind.app-debug-31:/layout_activity_appointment_reminder.xml.flat",
-        "source": "com.example.mediremind.app-main-33:/layout/activity_appointment_reminder.xml"
     },
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\layout_activity_report.xml.flat",
@@ -74,9 +90,5 @@
     {
         "merged": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-debug-31:\\drawable_ic_stat_pill.xml.flat",
         "source": "C:\\Users\\Kirti\\.gradle\\daemon\\9.6.0\\com.example.mediremind.app-main-33:\\drawable\\ic_stat_pill.xml"
-    },
-    {
-        "merged": "com.example.mediremind.app-debug-31:/layout_activity_appointments.xml.flat",
-        "source": "com.example.mediremind.app-main-33:/layout/activity_appointments.xml"
     }
 ]

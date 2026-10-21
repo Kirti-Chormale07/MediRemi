@@ -18,6 +18,11 @@
     <string name="low_stock">⚠ માત્ર %1$d બાકી – જલ્દી ભરાવો!</string>
     <string name="week_adherence">છેલ્લા 7 દિવસમાં લીધેલી ખુરાક: %1$d%%</string>
     <string name="missed_banner">ખુરાક ચૂકી – સંભાળનારને જાણ કરાઈ ✉</string>
+    <string name="tab_all">બધા</string>
+    <string name="tab_morning">સવાર</string>
+    <string name="tab_afternoon">બપોર</string>
+    <string name="tab_evening">સાંજ</string>
+    <string name="empty_filter">આ સમયગાળામાં કોઈ દવા નથી.</string>
 
     <string name="add_title">દવા ઉમેરો</string>
     <string name="edit_title">દવા બદલો</string>
@@ -58,12 +63,7 @@
     <string name="delete_title">આ દવા કાઢવી છે?</string>
     <string name="delete_msg">તેના અલાર્મ બંધ થઈ જશે.</string>
 
-    <string name="sms_api_header">SMS સેવા (Twilio – વિના SIM ચાલે છે)</string>
-    <string name="chk_twilio">સંભાળનારને ઇંટરનેટથી SMS મોકલો (Twilio)</string>
-    <string name="hint_sid">Twilio Account SID</string>
-    <string name="hint_token">Twilio Auth Token</string>
-    <string name="hint_from">Twilio નંબર, દા.ત. +15551234567</string>
-    <string name="err_twilio">ત્રણેય Twilio ફીલ્ડ ભરો, અથવા તેને બંધ કરો</string>
+    <string name="sms_sim_note">સંદેશા આ ફોનના પોતાના SIM કાર્ડથી મોકલાય છે.</string>
     <string name="settings_title">સેટિંગ્સ</string>
     <string name="lbl_patient">વૃદ્ધનું નામ</string>
     <string name="hint_patient">દા.ત. રમેશ</string>
@@ -180,6 +180,11 @@
     <string name="sms_missed">⚠ ખુરાક ચૂકી: %1$s એ %2$s (%3$s) %4$s વાગે લીધી નથી અને જવાબ આપ્યો નથી. કૃપા કરી તપાસ કરો. (MediRemind)</string>
     <string name="sms_skip">ખુરાક છોડી: %1$s એ %2$s (%3$s) %4$s વાગે છોડી દીધી. (MediRemind)</string>
     <string name="sms_sos">🆘 SOS: %1$s ને તાત્કાલિક મદદ જોઈએ છે. કૃપા કરી તરત કોલ કરો. (MediRemind)</string>
+    <string name="btn_test_sms">✉ ચકાસણી SMS મોકલો</string>
+    <string name="sms_test_msg">MediRemind તરફથી ચકાસણી – સંભાળનારની ચેતવણીઓ ચાલુ છે.</string>
+    <string name="sms_test_sent">સંભાળનારને ચકાસણી SMS મોકલાયો ✓</string>
+    <string name="sms_perm_title">SMS પરવાનગી જરૂરી</string>
+    <string name="sms_perm_msg">ચૂકેલી દવા પછી સંભાળનારને ચેતવણી આપવા માટે MediRemind ને SMS મોકલવાની પરવાનગી આપવી પડશે. સેટિંગ્સ ખોલો, પછી પરવાનગીઓ, પછી SMS પસંદ કરો અને “પરવાનગી આપો” દબાવો.</string>
 
     <string name="cancel">રદ કરો</string>
     <string name="ok">ઠીક છે</string>

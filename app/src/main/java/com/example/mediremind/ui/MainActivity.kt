@@ -22,10 +22,12 @@ import com.example.mediremind.R
 import com.example.mediremind.data.Db
 import com.example.mediremind.data.Prefs
 import com.example.mediremind.data.Status
+import com.example.mediremind.util.DoseActions
 import com.example.mediremind.util.LocaleHelper
 import com.example.mediremind.util.Scheduler
 import com.example.mediremind.util.SmsHelper
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.tabs.TabLayout
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
@@ -33,16 +35,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var list: RecyclerView
     private lateinit var adapter: DoseAdapter
     private lateinit var empty: android.view.View
+    private lateinit var filterEmpty: TextView
     private lateinit var banner: TextView
     private lateinit var greeting: TextView
     private lateinit var adherence: TextView
+
+    /** 0 = All, 1 = Morning (5–11), 2 = Afternoon (12–16), 3 = Evening (17–4). */
+    private var filterTab = 0
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
     }
 
     private val permLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {}
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+            // Without SEND_SMS the guardian would silently never be warned –
+            // send them to system settings instead of failing invisibly.
+            if (result[Manifest.permission.SEND_SMS] == false) showSmsPermDialog()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +63,27 @@ class MainActivity : AppCompatActivity() {
         banner = findViewById(R.id.txtMissedBanner)
         list = findViewById(R.id.listDoses)
         empty = findViewById(R.id.emptyState)
+        filterEmpty = findViewById(R.id.txtFilterEmpty)
 
-        adapter = DoseAdapter { row -> openEditor(row.medId) }
+        adapter = DoseAdapter(
+            onClick = { row -> openEditor(row.medId) },
+            onTaken = { row -> markTaken(row) }
+        )
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
+
+        val tabs = findViewById<TabLayout>(R.id.tabs)
+        listOf(R.string.tab_all, R.string.tab_morning, R.string.tab_afternoon, R.string.tab_evening)
+            .forEach { tabs.addTab(tabs.newTab().setText(getString(it))) }
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                filterTab = tab.position
+                refresh()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
 
         findViewById<MaterialButton>(R.id.btnAdd).setOnClickListener { openEditor(-1) }
         findViewById<MaterialButton>(R.id.btnAddEmpty).setOnClickListener { openEditor(-1) }
@@ -132,11 +159,38 @@ class MainActivity : AppCompatActivity() {
             }
         }
         rows.sortBy { it.at }
-        adapter.submit(rows)
+
+        // Time-of-day filter (All / Morning / Afternoon / Evening).
+        val visible = when (filterTab) {
+            1 -> rows.filter { hourOfDay(it.at) in 5..11 }
+            2 -> rows.filter { hourOfDay(it.at) in 12..16 }
+            3 -> rows.filter { hourOfDay(it.at) >= 17 || hourOfDay(it.at) < 5 }
+            else -> rows
+        }
+        adapter.submit(visible)
 
         val none = rows.isEmpty()
+        val filteredOut = !none && visible.isEmpty()
         empty.visibility = if (none) android.view.View.VISIBLE else android.view.View.GONE
-        list.visibility = if (none) android.view.View.INVISIBLE else android.view.View.VISIBLE
+        filterEmpty.visibility =
+            if (filteredOut) android.view.View.VISIBLE else android.view.View.GONE
+        list.visibility =
+            if (none || filteredOut) android.view.View.INVISIBLE else android.view.View.VISIBLE
+    }
+
+    private fun hourOfDay(millis: Long): Int =
+        Calendar.getInstance().apply { timeInMillis = millis }.get(Calendar.HOUR_OF_DAY)
+
+    /**
+     * One tap on the row's big checkmark: "I have taken this medicine".
+     * Same logic as the reminder screen / notification button (DoseActions.taken).
+     */
+    private fun markTaken(row: DoseAdapter.Row) {
+        if (row.status != Status.TAKEN) {
+            DoseActions.taken(this, row.medId, row.at)
+            Toast.makeText(this, R.string.status_taken, Toast.LENGTH_SHORT).show()
+        }
+        refresh()
     }
 
     private fun isSameDay(a: Long, b: Long): Boolean {
@@ -196,6 +250,30 @@ class MainActivity : AppCompatActivity() {
             .setMessage(getString(R.string.doctor_call_msg, name, prefs.doctorPhone))
             .setPositiveButton(R.string.doctor_call_go) { _, _ ->
                 startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:${prefs.doctorPhone}")))
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
+    /**
+     * SEND_SMS was refused → explain why it matters and jump straight to the
+     * system permission screen (on Android 11+ the dialog can't be shown again).
+     */
+    private fun showSmsPermDialog() {
+        if (isFinishing || isDestroyed) return
+        AlertDialog.Builder(this)
+            .setTitle(R.string.sms_perm_title)
+            .setMessage(R.string.sms_perm_msg)
+            .setPositiveButton(R.string.btn_settings) { _, _ ->
+                try {
+                    startActivity(
+                        Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:$packageName")
+                        )
+                    )
+                } catch (_: Exception) {
+                }
             }
             .setNegativeButton(R.string.cancel, null)
             .show()

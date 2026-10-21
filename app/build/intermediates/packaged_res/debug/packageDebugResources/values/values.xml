@@ -79,9 +79,9 @@
     <string name="btn_save_settings">Save Settings</string>
     <string name="btn_settings">⚙ Settings</string>
     <string name="btn_sos">🆘 SOS</string>
+    <string name="btn_test_sms">✉ Send test SMS</string>
     <string name="btn_time_auto">🕐 auto</string>
     <string name="cancel">Cancel</string>
-    <string name="chk_twilio">Send guardian SMS through internet (Twilio)</string>
     <string name="chk_voice">🔊 Speak the reminder out loud (in selected language)</string>
     <string name="day_line">%1$s — %2$d taken, %3$d missed</string>
     <string name="day_today">Today</string>
@@ -97,13 +97,13 @@
     <string name="doctor_not_set">The doctor’s number is not saved yet. Add it in Settings.</string>
     <string name="doctor_word">doctor</string>
     <string name="edit_title">Edit Medicine</string>
+    <string name="empty_filter">No medicines in this period.</string>
     <string name="empty_no_meds">No medicines yet.\nTap “+ Add Medicine” to start.</string>
     <string name="err_appt_doctor">Please type the doctor’s name</string>
     <string name="err_appt_future">Please pick a future date and time</string>
     <string name="err_name">Please type the medicine name</string>
     <string name="err_phone">Please enter a valid phone number</string>
     <string name="err_time">Add at least one reminder time</string>
-    <string name="err_twilio">Fill all 3 Twilio fields, or switch it off</string>
     <string name="friend">friend</string>
     <string name="grace_fmt">%1$d minutes</string>
     <string name="greeting">Namaste, %1$s</string>
@@ -114,13 +114,10 @@
     <string name="hint_doctor_name">e.g. Dr. Sharma</string>
     <string name="hint_doctor_phone">Doctor’s mobile number</string>
     <string name="hint_dose">e.g. 1 tablet, 5 ml</string>
-    <string name="hint_from">Twilio number, e.g. +15551234567</string>
     <string name="hint_guardian">e.g. 9876543210</string>
     <string name="hint_med_name">e.g. Metformin, Amlodipine</string>
     <string name="hint_patient">e.g. Ramesh</string>
-    <string name="hint_sid">Twilio Account SID</string>
     <string name="hint_stock">e.g. 30</string>
-    <string name="hint_token">Twilio Auth Token</string>
     <string name="lang_en">English</string>
     <string name="lang_gu">ગુજરાતી (Gujarati)</string>
     <string name="lang_hi">हिंदी (Hindi)</string>
@@ -191,10 +188,14 @@
     <string name="settings_title">Settings</string>
     <string name="skip_dialog_msg">An SMS will go to your guardian that you skipped this dose.</string>
     <string name="skip_dialog_title">Inform the guardian?</string>
-    <string name="sms_api_header">SMS service (Twilio – works without SIM)</string>
     <string name="sms_missed">⚠ MISSED DOSE: %1$s did not take %2$s (%3$s) at %4$s and did not respond. Please call and check. (MediRemind)</string>
+    <string name="sms_perm_msg">MediRemind must be allowed to send SMS so it can warn the guardian after a missed dose. Tap Settings, then Permissions, then SMS, and choose Allow.</string>
+    <string name="sms_perm_title">SMS permission needed</string>
+    <string name="sms_sim_note">Messages are sent from this phone’s own SIM card.</string>
     <string name="sms_skip">SKIPPED DOSE: %1$s skipped %2$s (%3$s) at %4$s. (MediRemind)</string>
     <string name="sms_sos">🆘 SOS: %1$s needs urgent help. Please call immediately. (MediRemind)</string>
+    <string name="sms_test_msg">Test from MediRemind – guardian alerts are working.</string>
+    <string name="sms_test_sent">Test SMS sent to the guardian ✓</string>
     <string name="sos_call">📞 Call guardian</string>
     <string name="sos_msg">What do you need?</string>
     <string name="sos_no_guardian">First add guardian’s number in Settings</string>
@@ -206,6 +207,10 @@
     <string name="status_snoozed">Snoozed</string>
     <string name="status_taken">Taken ✓</string>
     <string name="stock_left">Stock: %1$d left</string>
+    <string name="tab_afternoon">Afternoon</string>
+    <string name="tab_all">All</string>
+    <string name="tab_evening">Evening</string>
+    <string name="tab_morning">Morning</string>
     <string name="today_doses">Today’s doses</string>
     <string name="tts_appt">%1$s! Doctor appointment with %2$s at %3$s.</string>
     <string name="tts_prompt">%1$s! It is time to take %2$s, %3$s.</string>
@@ -226,6 +231,11 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/on_surface</item>
+    </style>
+    <style name="TabTextLarge" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">false</item>
     </style>
     <style name="Theme.MediRemind" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>

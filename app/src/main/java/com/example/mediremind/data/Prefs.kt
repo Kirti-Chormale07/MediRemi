@@ -35,31 +35,6 @@ class Prefs(context: Context) {
             sp.edit().putString("doctor_phone", value).apply()
         }
 
-    /** Twilio cloud SMS (works even when the phone has no SIM). */
-    var twilioEnabled: Boolean
-        get() = sp.getBoolean("tw_on", false)
-        set(value) {
-            sp.edit().putBoolean("tw_on", value).apply()
-        }
-
-    var twilioSid: String
-        get() = sp.getString("tw_sid", "") ?: ""
-        set(value) {
-            sp.edit().putString("tw_sid", value).apply()
-        }
-
-    var twilioToken: String
-        get() = sp.getString("tw_token", "") ?: ""
-        set(value) {
-            sp.edit().putString("tw_token", value).apply()
-        }
-
-    var twilioFrom: String
-        get() = sp.getString("tw_from", "") ?: ""
-        set(value) {
-            sp.edit().putString("tw_from", value).apply()
-        }
-
     /** "" = follow system language (Hindi/Marathi/Gujarati if available, else English). */
     var lang: String
         get() = sp.getString("lang", "") ?: ""

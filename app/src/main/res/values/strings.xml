@@ -19,6 +19,11 @@
     <string name="low_stock">⚠ Only %1$d left – refill soon!</string>
     <string name="week_adherence">Doses taken, last 7 days: %1$d%%</string>
     <string name="missed_banner">Missed dose – guardian was informed ✉</string>
+    <string name="tab_all">All</string>
+    <string name="tab_morning">Morning</string>
+    <string name="tab_afternoon">Afternoon</string>
+    <string name="tab_evening">Evening</string>
+    <string name="empty_filter">No medicines in this period.</string>
 
     <!-- Add / edit medicine -->
     <string name="add_title">Add Medicine</string>
@@ -61,12 +66,7 @@
     <string name="delete_msg">Reminders for it will stop.</string>
 
     <!-- Settings -->
-    <string name="sms_api_header">SMS service (Twilio – works without SIM)</string>
-    <string name="chk_twilio">Send guardian SMS through internet (Twilio)</string>
-    <string name="hint_sid">Twilio Account SID</string>
-    <string name="hint_token">Twilio Auth Token</string>
-    <string name="hint_from">Twilio number, e.g. +15551234567</string>
-    <string name="err_twilio">Fill all 3 Twilio fields, or switch it off</string>
+    <string name="sms_sim_note">Messages are sent from this phone’s own SIM card.</string>
     <string name="settings_title">Settings</string>
     <string name="lbl_patient">Elder’s name</string>
     <string name="hint_patient">e.g. Ramesh</string>
@@ -190,6 +190,11 @@
     <string name="sms_missed">⚠ MISSED DOSE: %1$s did not take %2$s (%3$s) at %4$s and did not respond. Please call and check. (MediRemind)</string>
     <string name="sms_skip">SKIPPED DOSE: %1$s skipped %2$s (%3$s) at %4$s. (MediRemind)</string>
     <string name="sms_sos">🆘 SOS: %1$s needs urgent help. Please call immediately. (MediRemind)</string>
+    <string name="btn_test_sms">✉ Send test SMS</string>
+    <string name="sms_test_msg">Test from MediRemind – guardian alerts are working.</string>
+    <string name="sms_test_sent">Test SMS sent to the guardian ✓</string>
+    <string name="sms_perm_title">SMS permission needed</string>
+    <string name="sms_perm_msg">MediRemind must be allowed to send SMS so it can warn the guardian after a missed dose. Tap Settings, then Permissions, then SMS, and choose Allow.</string>
 
     <!-- Common -->
     <string name="cancel">Cancel</string>
