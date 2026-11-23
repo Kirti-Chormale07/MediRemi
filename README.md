@@ -230,14 +230,26 @@ Dose time ──► DoseAlarmReceiver ──► full-screen ReminderActivity + n
 - Voice answer ("हाँ" heard via speech recognition → mark taken)
 - Recurring refill orders, weekly medicine box (7-day pill organiser) view
 - Export report as PDF for the doctor
-#   s m a r t - m e d i c i n e - r e m i n d e r  
- #   M e d i R e m i n d  
- #   M e d i R e m i n d  
- #   M e d i R e m i n d  
- #   M e d i R e m i n d  
- #   M e d i R e m i n d  
- #   M e d i R e m i  
- #   M e d i R e m i  
- #   M e d i R e m i  
- #   M e d i R e m i  
+#   s m a r t - m e d i c i n e - r e m i n d e r 
  
+ #   M e d i R e m i n d 
+ 
+ #   M e d i R e m i n d 
+ 
+ #   M e d i R e m i n d 
+ 
+ #   M e d i R e m i n d 
+ 
+ #   M e d i R e m i n d 
+ 
+ #   M e d i R e m i 
+ 
+ #   M e d i R e m i 
+ 
+ #   M e d i R e m i 
+ 
+ #   M e d i R e m i 
+ 
+ 
+
+Code for offcampus: 2KU3UT
