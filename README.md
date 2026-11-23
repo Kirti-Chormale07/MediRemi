@@ -245,6 +245,8 @@ Dose time ──► DoseAlarmReceiver ──► full-screen ReminderActivity + n
  #   M e d i R e m i 
  
  #   M e d i R e m i 
+
+off campus by AWS code:2KU3UT
  
  #   M e d i R e m i 
  
